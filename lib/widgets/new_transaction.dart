@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class NewTransaction extends StatelessWidget {
+  final Function addTransMeth;
   final titleController = TextEditingController();
   final amountController = TextEditingController();
+
+  NewTransaction(this.addTransMeth);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class NewTransaction extends StatelessWidget {
               style: TextStyle(color: Colors.purple),
             ),
             onPressed: () {
-              
+              addTransMeth(titleController.text, double.parse(amountController.text));
             },
           ),
         ]),
