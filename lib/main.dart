@@ -29,8 +29,6 @@ class _MyAppState extends State<MyApp> {
 
   String titleInput = "";
   String amountInput = "";
-  // final titleController = TextEditingController();
-  // final amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
