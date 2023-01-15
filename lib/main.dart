@@ -21,9 +21,11 @@ class _MyAppState extends State<MyApp> {
           title: const Text("Flutter App"),
         ),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: const <Widget>[
             SizedBox(
-              width: 100,
+              width: double.infinity,
               child: Card(
                 color: Colors.blue,
                 elevation: 5,
@@ -34,7 +36,12 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
             Card(
-              child: Text("List of TX"),
+              child: SizedBox(
+                  // width: 200,
+                  child: Text(
+                "List of TX",
+                textAlign: TextAlign.center,
+              )),
             )
           ],
         ),
