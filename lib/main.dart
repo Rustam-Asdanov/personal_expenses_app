@@ -1,6 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:personal_expenses_app/transaction.dart';
+import "package:intl/intl.dart";
 
 void main() {
   runApp(new MyApp());
@@ -24,6 +27,11 @@ class _MyAppState extends State<MyApp> {
         date: DateTime.now())
   ];
 
+  String titleInput = "";
+  String amountInput = "";
+  // final titleController = TextEditingController();
+  // final amountController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,7 +40,7 @@ class _MyAppState extends State<MyApp> {
           title: const Text("Flutter App"),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
@@ -46,6 +54,40 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
             ),
+            Card(
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      TextField(
+                        autocorrect: true,
+                        autofocus: true,
+                        decoration: InputDecoration(labelText: "Title "),
+                        onChanged: (value) => titleInput = value,
+                      ),
+                      TextField(
+                        autocorrect: true,
+                        decoration: InputDecoration(labelText: "Amount "),
+                        onChanged: (value) => amountInput = value,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue),
+                        child: Text(
+                          "Add Transaction",
+                          style: TextStyle(color: Colors.purple),
+                        ),
+                        onPressed: () {
+                          transactions.add(
+                            Transaction(id: "id", title: titleInput, amount: double.parse(amountInput), date: DateTime.now()),
+                          );
+                          print(titleInput);
+                        },
+                      ),
+                    ]),
+              ),
+            ),
             Column(
               children: transactions.map((elem) {
                 return Card(
@@ -53,23 +95,21 @@ class _MyAppState extends State<MyApp> {
                     children: <Widget>[
                       Container(
                         margin: const EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 15
-                        ),
-                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                        decoration: BoxDecoration(border: Border.all(
-                          width: 2,
-                          color: Colors.blueGrey,
-                          style: BorderStyle.solid
-                        )),
+                            vertical: 10, horizontal: 15),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 2,
+                                color: Colors.blueGrey,
+                                style: BorderStyle.solid)),
                         child: Text(
-                          elem.amount.toString(),
+                          "\$${elem.amount}",
                           style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.purple
-                          ),
-                          ),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.purple),
+                        ),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,18 +117,15 @@ class _MyAppState extends State<MyApp> {
                           Text(
                             elem.title,
                             style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Color.fromARGB(255, 62, 58, 55)
-                            ),
-                            ),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Color.fromARGB(255, 62, 58, 55)),
+                          ),
                           Text(
-                            elem.date.toString(),
+                            DateFormat.yMMMd().format(elem.date),
                             style: const TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey
-                            ),
-                            )
+                                fontSize: 12, color: Colors.grey),
+                          )
                         ],
                       )
                     ],
