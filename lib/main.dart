@@ -21,30 +21,46 @@ class _MyAppState extends State<MyApp> {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
 
+  void startAddNewTransaction(BuildContext ctx){
+    showModalBottomSheet(context: ctx, builder: (_) {
+      return null;
+    },);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text("Flutter App"),
+          actions: <Widget>[
+            IconButton(onPressed: () => {}, icon: Icon(Icons.add)),
+          ],
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              width: double.infinity,
-              child: Card(
-                color: Colors.blue,
-                elevation: 5,
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Text("Chart!"),
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                width: double.infinity,
+                child: Card(
+                  color: Colors.blue,
+                  elevation: 5,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Text("Chart!"),
+                  ),
                 ),
               ),
-            ),
-            UserTransactions(),
-          ],
+              UserTransactions(),
+            ],
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () => {},
         ),
       ),
     );

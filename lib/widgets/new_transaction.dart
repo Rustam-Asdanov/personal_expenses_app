@@ -7,6 +7,15 @@ class NewTransaction extends StatelessWidget {
 
   NewTransaction(this.addTransMeth);
 
+  void submitData() {
+    final enteredTitle = titleController.text;
+    final enteredAmount = double.parse(amountController.text);
+
+    if (enteredTitle.isEmpty || enteredAmount <= 0) return;
+
+    addTransMeth(enteredTitle, enteredAmount);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -18,23 +27,22 @@ class NewTransaction extends StatelessWidget {
             autofocus: true,
             controller: titleController,
             decoration: InputDecoration(labelText: "Title "),
+            onSubmitted: (_) => submitData(),
             // onChanged: (value) => titleInput = value,
           ),
           TextField(
-            autocorrect: true,
-            decoration: InputDecoration(labelText: "Amount "),
-            controller: amountController,
-            // onChanged: (value) => amountInput = value,
-          ),
+              keyboardType: TextInputType.number,
+              autocorrect: true,
+              decoration: InputDecoration(labelText: "Amount "),
+              controller: amountController,
+              onSubmitted: (_) => submitData()),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
             child: Text(
               "Add Transaction",
               style: TextStyle(color: Colors.purple),
             ),
-            onPressed: () {
-              addTransMeth(titleController.text, double.parse(amountController.text));
-            },
+            onPressed: submitData,
           ),
         ]),
       ),
